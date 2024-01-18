@@ -1,3 +1,5 @@
+const api = require("./api");
+
 const express = require("express");
 
 const server = express();
@@ -59,4 +61,10 @@ server.delete("/products/:id", (req, res) => {
 
   products = newProducts;
   res.send({ product: products });
+});
+
+server.get("/pokemon", async (req, res) => {
+  const { pokemon } = await api.get("pokemon/1");
+
+  return res.send(pokemon.forms[0].name);
 });
