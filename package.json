@@ -1,10 +1,15 @@
 {
-  "dependencies": {
-    "express": "^4.18.2",
-    "nodemon": "^3.0.3"
-  },
   "name": "iniciando-nodeJs",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "https://github.com/leozero3/iniciando-nodeJs.git",
+  "author": "Leonardo Gonzalez dos Santos <59115521+leozero3@users.noreply.github.com>",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.3"
+  }
 }
