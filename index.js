@@ -64,7 +64,11 @@ server.delete("/products/:id", (req, res) => {
 });
 
 server.get("/pokemon", async (req, res) => {
-  const { pokemon } = await api.get("pokemon/1");
+  try {
+    const { status, data } = await api.get("pokemo/1");
 
-  return res.send(pokemon.forms[0].name);
+    return res.send({ name: data.name });
+  } catch (error) {
+    return res.send({ error: error.message });
+  }
 });
