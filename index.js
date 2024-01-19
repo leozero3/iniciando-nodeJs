@@ -1,5 +1,7 @@
 const api = require("./api");
 
+const localStorage = require("localStorage");
+
 const express = require("express");
 
 const server = express();
@@ -63,6 +65,7 @@ server.delete("/products/:id", (req, res) => {
   res.send({ product: products });
 });
 
+// pokemon
 server.get("/pokemon", async (req, res) => {
   try {
     const { status, data } = await api.get("pokemo/1");
@@ -71,4 +74,28 @@ server.get("/pokemon", async (req, res) => {
   } catch (error) {
     return res.send({ error: error.message });
   }
+});
+
+function verifyUserAlread(req, res, next) {
+  const { email } = req.body;
+  if (!allUsers.find((user) => user.email === email)) {
+    return next();
+  }
+
+  return res.status(400).json({ Failed: "Email nao registrado" });
+}
+
+const allUsers = [];
+
+server.post("/register-users", verifyUserAlread, (req, res) => {
+  const user = req.body;
+  allUsers.push(user);
+  localStorage.setItem("users", JSON.stringify(allUsers));
+  return res.json({ user });
+});
+
+server.get("/users", (req, res) => {
+  const user = JSON.parse(localStorage.getItem("users"));
+
+  return res.json(user);
 });
